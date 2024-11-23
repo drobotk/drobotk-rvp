@@ -1,4 +1,4 @@
-public final class app/revanced/patches/owlfiles/UnlimitedConnectionsPatchKt {
+public final class drobotk/revanced/patches/owlfiles/UnlimitedConnectionsPatchKt {
 	public static final fun getUnlimitedConnectionsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 

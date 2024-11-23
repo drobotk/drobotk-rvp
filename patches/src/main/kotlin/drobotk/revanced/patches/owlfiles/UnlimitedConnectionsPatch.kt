@@ -1,4 +1,4 @@
-package app.revanced.patches.owlfiles
+package drobotk.revanced.patches.owlfiles
 
 import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
 import app.revanced.patcher.patch.bytecodePatch

@@ -1,4 +1,4 @@
-package app.revanced.patches.owlfiles
+package drobotk.revanced.patches.owlfiles
 
 import app.revanced.patcher.fingerprint
 import com.android.tools.smali.dexlib2.AccessFlags
