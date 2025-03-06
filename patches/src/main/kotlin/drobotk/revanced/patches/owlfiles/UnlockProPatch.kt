@@ -4,8 +4,8 @@ import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
 import app.revanced.patcher.patch.bytecodePatch
 
 @Suppress("unused")
-val unlimitedConnectionsPatch = bytecodePatch(
-    name = "Unlock unlimited connections",
+val unlockProPatch = bytecodePatch(
+    name = "Unlock Pro",
 ) {
     compatibleWith("com.skyjos.apps.fileexplorerfree")
 
