@@ -1,3 +1,7 @@
+public final class drobotk/revanced/patches/minesweeper/UnlockPremiumPatchKt {
+	public static final fun getUnlockPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class drobotk/revanced/patches/owlfiles/UnlockProPatchKt {
 	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
