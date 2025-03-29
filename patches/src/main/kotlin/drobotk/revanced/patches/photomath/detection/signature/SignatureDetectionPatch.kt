@@ -10,7 +10,6 @@ val signatureDetectionPatch = bytecodePatch(
 ) {
 
     execute {
-        println(checkSignatureFingerprint.method)
         val replacementIndex = checkSignatureFingerprint.patternMatch!!.endIndex
         val checkRegister =
             checkSignatureFingerprint.method.getInstruction<OneRegisterInstruction>(replacementIndex).registerA
