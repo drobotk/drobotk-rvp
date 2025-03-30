@@ -1,4 +1,4 @@
-package drobotk.revanced.patches.transportgzm
+package drobotk.revanced.patches.transportgzm.cooldown
 
 import app.revanced.patcher.fingerprint
 
