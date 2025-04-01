@@ -34,10 +34,6 @@ public final class drobotk/revanced/patches/timespirit/UnlockProPatchKt {
 	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
-public final class drobotk/revanced/patches/transportgzm/cooldown/RemoveCooldownPatchKt {
-	public static final fun getRemoveCooldownPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
 public final class drobotk/revanced/patches/transportgzm/signature/SpoofSignaturePatchKt {
 	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
