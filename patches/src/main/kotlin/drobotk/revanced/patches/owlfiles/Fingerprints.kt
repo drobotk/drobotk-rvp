@@ -1,11 +1,8 @@
 package drobotk.revanced.patches.owlfiles
 
 import app.revanced.patcher.fingerprint
-import com.android.tools.smali.dexlib2.AccessFlags
 
-internal val checkForProLicenseFingerprint = fingerprint {
-    accessFlags(AccessFlags.PUBLIC, AccessFlags.STATIC)
+internal val checkForLicenseFingerprint = fingerprint {
     returns("Z")
-    parameters("Landroid/content/Context;")
     strings("OWLFILES_LICENSE_KEY")
 }

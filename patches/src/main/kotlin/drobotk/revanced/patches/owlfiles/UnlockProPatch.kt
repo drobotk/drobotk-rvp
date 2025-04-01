@@ -10,7 +10,7 @@ val unlockProPatch = bytecodePatch(
     compatibleWith("com.skyjos.apps.fileexplorerfree")
 
     execute {
-        checkForProLicenseFingerprint.method.addInstructions(
+        checkForLicenseFingerprint.method.addInstructions(
             0,
             """
                 const/4 v0, 0x1
