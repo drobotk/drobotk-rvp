@@ -10,26 +10,6 @@ public final class drobotk/revanced/patches/owlfiles/UnlockProPatchKt {
 	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
-public final class drobotk/revanced/patches/photomath/detection/deviceid/SpoofDeviceIdPatchKt {
-	public static final fun getGetDeviceIdPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/photomath/detection/signature/SignatureDetectionPatchKt {
-	public static final fun getSignatureDetectionPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/photomath/misc/annoyances/HideUpdatePopupPatchKt {
-	public static final fun getHideUpdatePopupPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/photomath/misc/unlock/bookpoint/EnableBookpointPatchKt {
-	public static final fun getEnableBookpointPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/photomath/misc/unlock/plus/UnlockPlusPatchKt {
-	public static final fun getUnlockPlusPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
 public final class drobotk/revanced/patches/timespirit/UnlockProPatchKt {
 	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
