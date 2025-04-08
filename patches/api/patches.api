@@ -1,3 +1,7 @@
+public final class drobotk/revanced/patches/SpotifyExperimentsKt {
+	public static final fun getExperimentsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
 public final class drobotk/revanced/patches/all/ChangeVersionNamePatchKt {
 	public static final fun getChangeVersionNamePatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
