@@ -3,60 +3,49 @@ package drobotk.revanced.patches
 import app.revanced.patcher.fingerprint
 import app.revanced.patcher.extensions.InstructionExtensions.instructions
 import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
-import app.revanced.patcher.extensions.InstructionExtensions.replaceInstructions
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import com.android.tools.smali.dexlib2.iface.reference.Reference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.instruction.Instruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
-import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.builder.MutableMethodImplementation
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
-import com.android.tools.smali.dexlib2.immutable.ImmutableMethodParameter
 import app.revanced.patcher.util.proxy.mutableTypes.MutableClass
 import com.android.tools.smali.dexlib2.iface.Method
 import app.revanced.patcher.patch.bytecodePatch
+import com.android.tools.smali.dexlib2.iface.ClassDef
 
 inline fun <reified T : Reference> Instruction.getReference() = (this as? ReferenceInstruction)?.reference as? T
+
+internal fun hasReferenceToGetAssignedProperty(method: Method, classDef: ClassDef): Boolean {
+    method.implementation ?: return false
+    return method.instructions.any { instruction ->
+        instruction.getReference<MethodReference>()?.let { reference ->
+            reference.parameterTypes.count { it == "Ljava/lang/String;" } == 2
+                    && reference.definingClass == classDef.type
+        } ?: false
+    }
+}
 
 internal val getExperimentBoolFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC)
     parameters("Ljava/lang/String;", "Ljava/lang/String;", "Z")
     returns("Z")
-    // opcodes(
-    //     Opcode.CONST_4,
-    //     Opcode.INVOKE_VIRTUAL,
-    //     Opcode.MOVE_RESULT_OBJECT,
-    //     Opcode.IF_EQZ,
-    //     Opcode.IGET_OBJECT,
-    //     Opcode.IF_EQZ,
-    //     Opcode.INVOKE_VIRTUAL,
-    //     Opcode.MOVE_RESULT,
-    //     Opcode.RETURN
-    // )
+    custom(::hasReferenceToGetAssignedProperty)
 }
 
 internal val getExperimentEnumFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC)
     parameters("Ljava/lang/String;", "Ljava/lang/String;", "Ljava/lang/Enum;")
     returns("Ljava/lang/Enum;")
-    // opcodes(
-    //     Opcode.CONST_4,
-    //     Opcode.INVOKE_VIRTUAL,
-    //     Opcode.MOVE_RESULT_OBJECT,
-    //     Opcode.CONST_4,
-    //     Opcode.IF_EQZ,
-    //     Opcode.IGET_OBJECT,
-    //     Opcode.GOTO,
-    //     Opcode.MOVE_OBJECT,
-    // )
+    custom(::hasReferenceToGetAssignedProperty)
 }
 
 internal val getExperimentIntFingerprint = fingerprint {
     accessFlags(AccessFlags.PUBLIC)
     parameters("Ljava/lang/String;", "Ljava/lang/String;", "I", "I", "I")
     returns("I")
+    custom(::hasReferenceToGetAssignedProperty)
 }
 
 internal fun MutableClass.copyMethod(method: Method, copyName: String) =
