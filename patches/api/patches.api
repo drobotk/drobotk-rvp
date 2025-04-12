@@ -6,10 +6,6 @@ public final class drobotk/revanced/patches/all/ChangeVersionNamePatchKt {
 	public static final fun getChangeVersionNamePatch ()Lapp/revanced/patcher/patch/ResourcePatch;
 }
 
-public final class drobotk/revanced/patches/messenger/RemoveMetaAITabPatchKt {
-	public static final fun getRemoveMetaAITabPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
 public final class drobotk/revanced/patches/minesweeper/UnlockPremiumPatchKt {
 	public static final fun getUnlockPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
