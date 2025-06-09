@@ -3,5 +3,5 @@ extension {
 }
 
 android {
-    namespace = "drobotk.revanced"
+    namespace = "drobotk.revanced.extension"
 }

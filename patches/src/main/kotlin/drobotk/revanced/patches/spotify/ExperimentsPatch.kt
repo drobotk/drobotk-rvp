@@ -8,7 +8,7 @@ import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 
-private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/spotify/ExperimentsPatch;"
+private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/ExperimentsPatch;"
 
 internal fun MutableMethod.copy() =
     ImmutableMethod(

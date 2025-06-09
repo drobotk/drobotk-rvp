@@ -1,4 +1,4 @@
-package drobotk.revanced.spotify;
+package drobotk.revanced.extension.spotify;
 
 import android.util.Log;
 
@@ -49,4 +49,3 @@ public class ExperimentsPatch {
 //        Log.d("drobotk logObject", "" + object);
 //    }
 }
-
