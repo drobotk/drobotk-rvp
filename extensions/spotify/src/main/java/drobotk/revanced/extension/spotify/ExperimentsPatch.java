@@ -2,6 +2,7 @@ package drobotk.revanced.extension.spotify;
 
 import android.util.Log;
 
+@SuppressWarnings("unused")
 public class ExperimentsPatch {
     private static final boolean LOG = false;
 
@@ -18,8 +19,13 @@ public class ExperimentsPatch {
         if (LOG)
             Log.d("Experiments", scope + ":" + name + ":b:" + defaultValue + ":" + value);
 
-        if (scope.contains("integrity") && name.contains("enabled"))
-            return false;
+        if (name.contains("enabled")) {
+            if (scope.contains("integrity"))
+                return false;
+
+            if (scope.contains("upsell") || name.contains("upsell"))
+                return false;
+        }
 
         return value;
     }
