@@ -129,3 +129,5 @@ node_modules/
 .idea/
 
 patches/bin
+
+local.properties
