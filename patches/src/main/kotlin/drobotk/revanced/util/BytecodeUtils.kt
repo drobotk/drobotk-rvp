@@ -1,4 +1,4 @@
-package drobotk.revanced.util
+package app.revanced.util
 
 import app.revanced.patcher.FingerprintBuilder
 import app.revanced.patcher.extensions.InstructionExtensions.addInstruction
@@ -10,12 +10,13 @@ import app.revanced.patcher.extensions.InstructionExtensions.removeInstruction
 import app.revanced.patcher.patch.BytecodePatchContext
 import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.util.proxy.mutableTypes.MutableClass
+import app.revanced.patcher.util.proxy.mutableTypes.MutableField
 import app.revanced.patcher.util.proxy.mutableTypes.MutableField.Companion.toMutable
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
 import app.revanced.patcher.util.smali.ExternalLabel
-import drobotk.revanced.util.InstructionUtils.Companion.branchOpcodes
-import drobotk.revanced.util.InstructionUtils.Companion.returnOpcodes
-import drobotk.revanced.util.InstructionUtils.Companion.writeOpcodes
+import app.revanced.util.InstructionUtils.Companion.branchOpcodes
+import app.revanced.util.InstructionUtils.Companion.returnOpcodes
+import app.revanced.util.InstructionUtils.Companion.writeOpcodes
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.Opcode.*
@@ -709,16 +710,22 @@ internal fun Boolean.toHexString(): String = if (this) "0x1" else "0x0"
  *
  * For methods that return an object or any array type, calling this method with `false`
  * will force the method to return a `null` value.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Boolean = false) {
     val returnType = returnType.first()
-    check(returnType == 'Z' || (!value && (returnType in setOf('V', 'L', '[')))) { RETURN_TYPE_MISMATCH }
+    check(returnType == 'Z' || (!value && (returnType == 'V' || returnType == 'L' || returnType != '['))) {
+        RETURN_TYPE_MISMATCH
+    }
     overrideReturnValue(value.toHexString(), false)
 }
 
 /**
  * Overrides the first instruction of a method with a constant `Byte` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Byte) {
     check(returnType.first() == 'B') { RETURN_TYPE_MISMATCH }
@@ -728,6 +735,8 @@ fun MutableMethod.returnEarly(value: Byte) {
 /**
  * Overrides the first instruction of a method with a constant `Short` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Short) {
     check(returnType.first() == 'S') { RETURN_TYPE_MISMATCH }
@@ -737,6 +746,8 @@ fun MutableMethod.returnEarly(value: Short) {
 /**
  * Overrides the first instruction of a method with a constant `Char` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Char) {
     check(returnType.first() == 'C') { RETURN_TYPE_MISMATCH }
@@ -746,6 +757,8 @@ fun MutableMethod.returnEarly(value: Char) {
 /**
  * Overrides the first instruction of a method with a constant `Int` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Int) {
     check(returnType.first() == 'I') { RETURN_TYPE_MISMATCH }
@@ -755,6 +768,8 @@ fun MutableMethod.returnEarly(value: Int) {
 /**
  * Overrides the first instruction of a method with a constant `Long` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Long) {
     check(returnType.first() == 'J') { RETURN_TYPE_MISMATCH }
@@ -764,6 +779,8 @@ fun MutableMethod.returnEarly(value: Long) {
 /**
  * Overrides the first instruction of a method with a constant `Float` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Float) {
     check(returnType.first() == 'F') { RETURN_TYPE_MISMATCH }
@@ -773,10 +790,28 @@ fun MutableMethod.returnEarly(value: Float) {
 /**
  * Overrides the first instruction of a method with a constant `Double` return value.
  * None of the method code will ever execute.
+ *
+ * @see returnLate
  */
 fun MutableMethod.returnEarly(value: Double) {
     check(returnType.first() == 'J') { RETURN_TYPE_MISMATCH }
     overrideReturnValue(value.toString(), false)
+}
+
+/**
+ * Overrides the first instruction of a method with a constant String return value.
+ * None of the method code will ever execute.
+ *
+ * Target method must have return type
+ * Ljava/lang/String; or Ljava/lang/CharSequence;
+ *
+ * @see returnLate
+ */
+fun MutableMethod.returnEarly(value: String) {
+    check(returnType == "Ljava/lang/String;" || returnType == "Ljava/lang/CharSequence;") {
+        RETURN_TYPE_MISMATCH
+    }
+    overrideReturnValue(value, false)
 }
 
 /**
@@ -793,7 +828,9 @@ fun MutableMethod.returnLate(value: Boolean) {
     if (returnType == 'V') {
         error("Cannot return late for Method of void type")
     }
-    check(returnType == 'Z' || (!value && returnType in setOf('L', '['))) { RETURN_TYPE_MISMATCH }
+    check(returnType == 'Z' || (!value && (returnType == 'L' || returnType == '['))) {
+        RETURN_TYPE_MISMATCH
+    }
 
     overrideReturnValue(value.toHexString(), true)
 }
@@ -875,8 +912,29 @@ fun MutableMethod.returnLate(value: Double) {
     overrideReturnValue(value.toString(), true)
 }
 
+/**
+ * Overrides all return statements with a constant String value.
+ * All method code is executed the same as unpatched.
+ *
+ * Target method must have return type
+ * Ljava/lang/String; or Ljava/lang/CharSequence;
+ *
+ * @see returnEarly
+ */
+fun MutableMethod.returnLate(value: String) {
+    check(returnType == "Ljava/lang/String;" || returnType == "Ljava/lang/CharSequence;") {
+        RETURN_TYPE_MISMATCH
+    }
+    overrideReturnValue(value, true)
+}
+
 private fun MutableMethod.overrideReturnValue(value: String, returnLate: Boolean) {
-    val instructions = when (returnType.first()) {
+    val instructions = if (returnType == "Ljava/lang/String;" || returnType == "Ljava/lang/CharSequence;" ) {
+        """
+            const-string v0, "$value"
+            return-object v0
+        """
+    } else when (returnType.first()) {
         // If return type is an object, always return null.
         'L', '[' -> {
             """
@@ -921,14 +979,22 @@ private fun MutableMethod.overrideReturnValue(value: String, returnLate: Boolean
     }
 
     if (returnLate) {
-        findInstructionIndicesReversed {
-            opcode == RETURN || opcode == RETURN_OBJECT
+        findInstructionIndicesReversedOrThrow {
+            opcode == RETURN || opcode == RETURN_WIDE || opcode == RETURN_OBJECT
         }.forEach { index ->
             addInstructionsAtControlFlowLabel(index, instructions)
         }
     } else {
         addInstructions(0, instructions)
     }
+}
+
+/**
+ * Remove the given AccessFlags from the field.
+ */
+internal fun MutableField.removeFlags(vararg flags: AccessFlags) {
+    val bitField = flags.map { it.value }.reduce { acc, flag -> acc and flag }
+    this.accessFlags = this.accessFlags and bitField.inv()
 }
 
 internal fun BytecodePatchContext.addStaticFieldToExtension(

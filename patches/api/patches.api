@@ -1,28 +1,4 @@
-public final class drobotk/revanced/patches/all/ChangeVersionNamePatchKt {
-	public static final fun getChangeVersionNamePatch ()Lapp/revanced/patcher/patch/ResourcePatch;
-}
-
-public final class drobotk/revanced/patches/minesweeper/UnlockPremiumPatchKt {
-	public static final fun getUnlockPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/owlfiles/UnlockProPatchKt {
-	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/spotify/ExperimentsPatchKt {
-	public static final fun getExperimentsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/timespirit/UnlockProPatchKt {
-	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/patches/transportgzm/signature/SpoofSignaturePatchKt {
-	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
-}
-
-public final class drobotk/revanced/util/BytecodeUtilsKt {
+public final class app/revanced/util/BytecodeUtilsKt {
 	public static final fun addInstructionsAtControlFlowLabel (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;ILjava/lang/String;)V
 	public static final fun addInstructionsAtControlFlowLabel (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;ILjava/lang/String;[Lapp/revanced/patcher/util/smali/ExternalLabel;)V
 	public static final fun containsLiteralInstruction (Lcom/android/tools/smali/dexlib2/iface/Method;D)Z
@@ -75,6 +51,7 @@ public final class drobotk/revanced/util/BytecodeUtilsKt {
 	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;F)V
 	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;I)V
 	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;J)V
+	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;Ljava/lang/String;)V
 	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;S)V
 	public static final fun returnEarly (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;Z)V
 	public static synthetic fun returnEarly$default (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;ZILjava/lang/Object;)V
@@ -84,9 +61,34 @@ public final class drobotk/revanced/util/BytecodeUtilsKt {
 	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;F)V
 	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;I)V
 	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;J)V
+	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;Ljava/lang/String;)V
 	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;S)V
 	public static final fun returnLate (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableMethod;Z)V
 	public static final fun transformMethods (Lapp/revanced/patcher/util/proxy/mutableTypes/MutableClass;Lkotlin/jvm/functions/Function1;)V
 	public static final fun traverseClassHierarchy (Lapp/revanced/patcher/patch/BytecodePatchContext;Lapp/revanced/patcher/util/proxy/mutableTypes/MutableClass;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class drobotk/revanced/patches/all/ChangeVersionNamePatchKt {
+	public static final fun getChangeVersionNamePatch ()Lapp/revanced/patcher/patch/ResourcePatch;
+}
+
+public final class drobotk/revanced/patches/minesweeper/UnlockPremiumPatchKt {
+	public static final fun getUnlockPremiumPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class drobotk/revanced/patches/owlfiles/UnlockProPatchKt {
+	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class drobotk/revanced/patches/spotify/ExperimentsPatchKt {
+	public static final fun getExperimentsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class drobotk/revanced/patches/timespirit/UnlockProPatchKt {
+	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class drobotk/revanced/patches/transportgzm/signature/SpoofSignaturePatchKt {
+	public static final fun getSpoofSignaturePatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 

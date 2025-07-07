@@ -1,7 +1,7 @@
 package drobotk.revanced.patches.owlfiles
 
-import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
 import app.revanced.patcher.patch.bytecodePatch
+import app.revanced.util.returnEarly
 
 @Suppress("unused")
 val unlockProPatch = bytecodePatch(
@@ -10,12 +10,6 @@ val unlockProPatch = bytecodePatch(
     compatibleWith("com.skyjos.apps.fileexplorerfree")
 
     execute {
-        checkForLicenseFingerprint.method.addInstructions(
-            0,
-            """
-                const/4 v0, 0x1
-                return v0
-            """,
-        )
+        isLicenseKeySetFingerprint.method.returnEarly(true)
     }
 }
