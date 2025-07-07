@@ -20,21 +20,21 @@ public class ExperimentsPatch {
         if (LOG)
             Log.d(LOG_TAG, scope + ":" + name + ":b:" + defaultValue + ":" + value);
 
-//        if (name.contains("enabled")) {
-//            if (scope.contains("integrity"))
-//                return true;
-//
-//            if (scope.contains("upsell") || name.contains("upsell"))
-//                return false;
-//        }
-//
-//        if (name.equals("enable_available_plans_v2")
-//            || name.equals("enable_your_plan_sidedrawer")
-//            || name.equals("enable_rate_limiter"))
-//            return false;
+        if (name.contains("enabled")) {
+            if (scope.contains("integrity"))
+                return false;
 
-        if (name.equals("validation_enabled") || name.equals("time_tracking_enabled"))
-            return true;
+            if (scope.contains("upsell") || name.contains("upsell"))
+                return false;
+        }
+
+        if (name.equals("enable_available_plans_v2")
+            || name.equals("enable_your_plan_sidedrawer")
+            || name.equals("enable_rate_limiter"))
+            return false;
+
+//        if (name.equals("validation_enabled") || name.equals("time_tracking_enabled"))
+//            return true;
 
         return value;
     }
