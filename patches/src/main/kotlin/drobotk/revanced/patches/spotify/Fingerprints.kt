@@ -53,3 +53,9 @@ internal val productStateProtoGetMapFingerprint = fingerprint {
 internal val buildQueryParametersFingerprint = fingerprint {
     strings("trackRows", "device_type:tablet")
 }
+
+internal val getPackageInfoFingerprint = fingerprint {
+    strings(
+        "Failed to get the application signatures"
+    )
+}

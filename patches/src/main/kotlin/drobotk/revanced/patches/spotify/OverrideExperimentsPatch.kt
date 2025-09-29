@@ -10,7 +10,7 @@ import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
 
-internal fun MutableMethod.copy() =
+private fun MutableMethod.copy() =
     ImmutableMethod(
         definingClass,
         name,
