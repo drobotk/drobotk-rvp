@@ -8,7 +8,7 @@ import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 
-private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/ExperimentsPatch;"
+private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
 
 internal fun MutableMethod.copy() =
     ImmutableMethod(
@@ -23,8 +23,8 @@ internal fun MutableMethod.copy() =
     ).toMutable()
 
 @Suppress("unused")
-val experimentsPatch = bytecodePatch(
-    name = "Experiments"
+val overrideExperimentsPatch = bytecodePatch(
+    name = "Override experiments"
 ) {
     compatibleWith("com.spotify.music")
 

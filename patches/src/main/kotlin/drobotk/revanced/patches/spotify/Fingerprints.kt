@@ -4,7 +4,6 @@ import app.revanced.patcher.fingerprint
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
-import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import app.revanced.util.getReference
 import app.revanced.util.indexOfFirstInstruction
@@ -38,32 +37,19 @@ internal val getExperimentIntFingerprint = fingerprint {
     custom(::hasReferenceToGetAssignedProperty)
 }
 
-internal val setCookieFingerprint = fingerprint {
-    accessFlags(AccessFlags.PUBLIC)
-    parameters("Lio/reactivex/rxjava3/core/CompletableEmitter;")
-    returns("V")
-    custom { method, _ ->
-        method.name == "subscribe" && method.indexOfFirstInstruction {
-            getReference<MethodReference>()?.name == "setCookie"
-        } >= 0
+internal val accountAttributeFingerprint = fingerprint {
+    custom { _, classDef ->
+        classDef.type == "Lcom/spotify/remoteconfig/internal/AccountAttribute;"
     }
 }
 
-internal val planDynamicMethodFingerprint = fingerprint {
-    strings("bitField0_", "planType_", "planTier_", "planName_", "shortPlanName_", "planColor_")
-}
-
-internal val getPlanColorFingerprint = fingerprint {
-    returns("Ljava/lang/String;")
-    custom { method, _ ->
-        method.indexOfFirstInstruction {
-            getReference<FieldReference>()?.name == "planColor_"
-        } >= 0
+internal val productStateProtoGetMapFingerprint = fingerprint {
+    returns("Ljava/util/Map;")
+    custom { _, classDef ->
+        classDef.type == "Lcom/spotify/remoteconfig/internal/ProductStateProto;"
     }
 }
 
-internal val createYourPlanSideDrawerListItemFingerprint = fingerprint {
-    parameters("L", "Ljava/lang/String;", "Ljava/lang/String;", "Z", "Z", "Z", "I")
-    returns("L")
-    strings("#FFFFFF")
+internal val buildQueryParametersFingerprint = fingerprint {
+    strings("trackRows", "device_type:tablet")
 }

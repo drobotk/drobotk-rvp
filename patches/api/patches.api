@@ -80,8 +80,12 @@ public final class drobotk/revanced/patches/owlfiles/UnlockProPatchKt {
 	public static final fun getUnlockProPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
-public final class drobotk/revanced/patches/spotify/ExperimentsPatchKt {
-	public static final fun getExperimentsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+public final class drobotk/revanced/patches/spotify/OverrideAccountAttributesPatchKt {
+	public static final fun getOverrideAccountAttributesPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
+}
+
+public final class drobotk/revanced/patches/spotify/OverrideExperimentsPatchKt {
+	public static final fun getOverrideExperimentsPatch ()Lapp/revanced/patcher/patch/BytecodePatch;
 }
 
 public final class drobotk/revanced/patches/timespirit/UnlockProPatchKt {
