@@ -4,7 +4,7 @@ import android.util.Log;
 
 @SuppressWarnings("unused")
 public class OverrideExperimentsPatch {
-    private static final boolean LOG = true;
+    private static final boolean LOG_ALL = true;
     private static final String LOG_TAG = "drobotk: OverrideExperimentsPatch";
 
     @SuppressWarnings("unused")
@@ -18,7 +18,7 @@ public class OverrideExperimentsPatch {
 
     @SuppressWarnings("unused")
     public static boolean getExperimentBool(String scope, String name, boolean defaultValue, boolean value) {
-        if (LOG)
+        if (LOG_ALL)
             Log.d(LOG_TAG, scope + ":" + name + ":b:" + defaultValue + ":" + value);
 
         if (name.contains("enable")) {
@@ -34,7 +34,7 @@ public class OverrideExperimentsPatch {
 
     @SuppressWarnings("unused")
     public static <T extends Enum<T>> T getExperimentEnum(String scope, String name, T defaultValue, T value) {
-        if (LOG) {
+        if (LOG_ALL) {
             StringBuilder sb = new StringBuilder();
             T[] constants = defaultValue.getDeclaringClass().getEnumConstants();
             if (constants != null) {
@@ -51,7 +51,7 @@ public class OverrideExperimentsPatch {
 
     @SuppressWarnings("unused")
     public static int getExperimentInt(String scope, int min, int max, int defaultValue, String name, int value) {
-        if (LOG)
+        if (LOG_ALL)
             Log.d(LOG_TAG, scope + ":" + name + ":i:" + min + ":" + max + ":" + defaultValue + ":" + value);
 
         return value;
