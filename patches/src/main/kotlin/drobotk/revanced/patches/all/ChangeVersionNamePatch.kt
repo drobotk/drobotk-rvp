@@ -11,13 +11,12 @@ val changeVersionNamePatch = resourcePatch(
     use = false,
 ) {
     val versionName by stringOption(
-        key = "versionName",
-        title = "Version name",
+        name = "Version name",
         description = "The version name to use.",
         required = true,
     )
 
-    execute {
+    apply {
         document("AndroidManifest.xml").use { document ->
             val manifestElement = document.getElementsByTagName("manifest").item(0) as Element
             manifestElement.setAttribute("android:versionName", "$versionName")

@@ -1,10 +1,9 @@
 package drobotk.revanced.patches.spotify
 
-import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
-import app.revanced.patcher.extensions.InstructionExtensions.instructions
-import app.revanced.patcher.extensions.InstructionExtensions.removeInstructions
+import app.revanced.patcher.extensions.addInstructions
+import app.revanced.patcher.extensions.instructions
+import app.revanced.patcher.extensions.removeInstructions
 import app.revanced.patcher.patch.bytecodePatch
-import drobotk.revanced.util.copy
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
 
@@ -16,17 +15,17 @@ val overrideExperimentsPatch = bytecodePatch(
 
     extendWith("extensions/drobotk/spotify.rve")
 
-    execute {
-        with(getExperimentBoolFingerprint) {
-            println(method)
+    apply {
+        getExperimentBoolMethod.apply {
+            println(this)
 
-            val trampolineMethod = method.copy().apply {
+            val trampolineMethod = copy().apply {
                 name = "trampoline_getExperimentBool"
                 classDef.methods.add(this)
             }
 
-            method.removeInstructions(method.instructions.count())
-            method.addInstructions(
+            removeInstructions(instructions.count())
+            addInstructions(
                 """
                     invoke-virtual {p0, p1, p2, p3}, $trampolineMethod
 
@@ -41,16 +40,16 @@ val overrideExperimentsPatch = bytecodePatch(
             )
         }
 
-        with(getExperimentEnumFingerprint) {
-            println(method)
+        getExperimentEnumMethod.apply {
+            println(this)
 
-            val trampolineMethod = method.copy().apply {
+            val trampolineMethod = copy().apply {
                 name = "trampoline_getExperimentEnum"
                 classDef.methods.add(this)
             }
 
-            method.removeInstructions(method.instructions.count())
-            method.addInstructions(
+            removeInstructions(instructions.count())
+            addInstructions(
                 """
                     invoke-virtual {p0, p1, p2, p3}, $trampolineMethod
 
@@ -65,16 +64,16 @@ val overrideExperimentsPatch = bytecodePatch(
             )
         }
 
-        with(getExperimentIntFingerprint) {
-            println(method)
+        getExperimentIntMethod.apply {
+            println(this)
 
-            val trampolineMethod = method.copy().apply {
+            val trampolineMethod = copy().apply {
                 name = "trampoline_getExperimentInt"
                 classDef.methods.add(this)
             }
 
-            method.removeInstructions(method.instructions.count())
-            method.addInstructions(
+            removeInstructions(instructions.count())
+            addInstructions(
                 """
                     invoke-virtual/range {p0 .. p5}, $trampolineMethod
 

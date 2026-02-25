@@ -1,12 +1,11 @@
 package drobotk.revanced.patches.timespirit
 
-import app.revanced.patcher.fingerprint
-import com.android.tools.smali.dexlib2.AccessFlags
+import app.revanced.patcher.*
+import app.revanced.patcher.patch.BytecodePatchContext
 
-internal val mainActivityOnCreateFingerprint = fingerprint {
-    returns("V")
-    parameters("Landroid/os/Bundle;")
-    custom { method, classDef ->
-        method.name == "onCreate" && classDef.type == "Lcom/mountaindehead/timelapsproject/view/activity/startScreens/StartingExplanationsActivity;"
-    }
+internal val BytecodePatchContext.mainActivityOnCreateMethod by gettingFirstMethodDeclaratively {
+    name("onCreate")
+    definingClass("Lcom/mountaindehead/timelapsproject/view/activity/startScreens/StartingExplanationsActivity;")
+    returnType("V")
+    parameterTypes("Landroid/os/Bundle;")
 }

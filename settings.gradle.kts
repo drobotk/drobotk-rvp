@@ -2,6 +2,7 @@ rootProject.name = "drobotk-rvp"
 
 pluginManagement {
     repositories {
+        mavenLocal()
         gradlePluginPortal()
         google()
         maven {

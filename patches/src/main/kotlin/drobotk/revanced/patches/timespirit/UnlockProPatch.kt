@@ -1,6 +1,6 @@
 package drobotk.revanced.patches.timespirit
 
-import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
+import app.revanced.patcher.extensions.addInstructions
 import app.revanced.patcher.patch.bytecodePatch
 
 @Suppress("unused")
@@ -9,8 +9,8 @@ val unlockProPatch = bytecodePatch(
 ) {
     compatibleWith("com.mountaindehead.timelapsproject")
 
-    execute {
-        mainActivityOnCreateFingerprint.method.addInstructions(
+    apply {
+        mainActivityOnCreateMethod.addInstructions(
             0,
             """
                 const/4 v0, 0x1

@@ -1,12 +1,10 @@
 package drobotk.revanced.patches.spotify
 
-import app.revanced.patcher.extensions.InstructionExtensions.addInstruction
-import app.revanced.patcher.extensions.InstructionExtensions.getInstruction
-import app.revanced.patcher.extensions.InstructionExtensions.removeInstruction
+import app.revanced.patcher.extensions.*
 import app.revanced.patcher.patch.bytecodePatch
-import drobotk.revanced.util.indexOfFirstInstructionOrThrow
-import drobotk.revanced.util.indexOfFirstInstructionReversedOrThrow
-import drobotk.revanced.util.toPublicAccessFlags
+import app.revanced.util.indexOfFirstInstructionOrThrow
+import app.revanced.util.indexOfFirstInstructionReversedOrThrow
+import app.revanced.util.toPublicAccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 
@@ -22,13 +20,13 @@ val overrideAccountAttributesPatch = bytecodePatch(
 
     execute {
         // Make value_ public so that it can be overridden in the extension.
-        accountAttributeFingerprint.classDef.fields.first {
+        accountAttributeClassDef.fields.first {
             it.name == "value_"
         }.apply {
             accessFlags = accessFlags.toPublicAccessFlags()
         }
 
-        productStateProtoGetMapFingerprint.method.apply {
+        productStateProtoGetMapMethod.apply {
             val getAttributesMapIndex = indexOfFirstInstructionOrThrow(Opcode.IGET_OBJECT)
             val attributesMapRegister = getInstruction<TwoRegisterInstruction>(getAttributesMapIndex).registerA
 
@@ -41,12 +39,12 @@ val overrideAccountAttributesPatch = bytecodePatch(
         }
 
         // Add the query parameter trackRows to show popular tracks in the artist page.
-        with(buildQueryParametersFingerprint) {
-            val addQueryParameterConditionIndex = method.indexOfFirstInstructionReversedOrThrow(
-                stringMatches!!.first().index, Opcode.IF_EQZ
+        buildQueryParametersMethodMatch.method.apply {
+            val addQueryParameterConditionIndex = indexOfFirstInstructionReversedOrThrow(
+                buildQueryParametersMethodMatch[0], Opcode.IF_EQZ
             )
 
-            method.removeInstruction(addQueryParameterConditionIndex)
+            removeInstruction(addQueryParameterConditionIndex)
         }
     }
 }

@@ -7,13 +7,13 @@ patches {
         source = "git@github.com:drobotk/rvp.git"
         author = "drobotk"
         contact = "drobotk@github.com"
-        website = "https://github.com/drobotk/rvp"
+        website = "https://github.com/drobotk/drobotk-rvp"
         license = "GNU General Public License v3.0"
     }
 }
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs = listOf("-Xcontext-receivers")
+        freeCompilerArgs = listOf("-Xcontext-parameters")
     }
 }

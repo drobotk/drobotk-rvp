@@ -1,16 +1,13 @@
 package drobotk.revanced.patches.netanalyzer
 
-import app.revanced.patcher.extensions.InstructionExtensions.addInstruction
-import app.revanced.patcher.extensions.InstructionExtensions.getInstruction
-import app.revanced.patcher.extensions.InstructionExtensions.instructions
-import app.revanced.patcher.extensions.InstructionExtensions.replaceInstruction
+import app.revanced.patcher.extensions.*
 import app.revanced.patcher.patch.bytecodePatch
-import drobotk.revanced.util.returnEarly
+import app.revanced.util.returnEarly
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction10t
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21t
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import drobotk.revanced.util.indexOfFirstInstruction
+import app.revanced.util.indexOfFirstInstructionOrThrow
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/netanalyzer/DisableChecksPatch;"
 
@@ -22,8 +19,8 @@ val unlockProPatch = bytecodePatch(
 
     compatibleWith("net.techet.netanalyzer.an")
 
-    execute {
-        deobfStringFingerprint.method.apply {
+    apply {
+        deobfStringMethod.apply {
             addInstruction(
                 0,
                 """
@@ -34,38 +31,22 @@ val unlockProPatch = bytecodePatch(
             val returnRegister = getInstruction<OneRegisterInstruction>(returnIdx).registerA
             replaceInstruction(
                 returnIdx,
-                """
-                    invoke-static {v$returnRegister}, $EXTENSION_CLASS_DESCRIPTOR->debugLogOutput(Ljava/lang/String;)V
-                """
+                "invoke-static {v$returnRegister}, $EXTENSION_CLASS_DESCRIPTOR->debugLogOutput(Ljava/lang/String;)V"
             )
-            addInstruction("""
-                return-object v$returnRegister
-            """)
+            addInstruction("return-object v$returnRegister")
         }
 
-        whateverFingerprint.method.returnEarly()
-        with(whatever2Fingerprint) {
-            val strIdx = stringMatches!!.first().index
-            val ifNezIdx = method.indexOfFirstInstruction(strIdx, Opcode.IF_NEZ)
-            val ifNezTarget = method.getInstruction<BuilderInstruction21t>(ifNezIdx).target
-            method.replaceInstruction(ifNezIdx, BuilderInstruction10t(Opcode.GOTO, ifNezTarget))
+        whateverMethod1.returnEarly()
+
+        whateverMethod2Match.method.apply {
+            val strIdx = whateverMethod2Match[0]
+            val ifNezIdx = indexOfFirstInstructionOrThrow(strIdx, Opcode.IF_NEZ)
+            val ifNezTarget = getInstruction<BuilderInstruction21t>(ifNezIdx).target
+            replaceInstruction(ifNezIdx, BuilderInstruction10t(Opcode.GOTO, ifNezTarget))
         }
 
-        with(whatever3Fingerprint) {
-            val strIdx = stringMatches!!.first().index
-            method.replaceInstruction(strIdx, "return-void")
+        whateverMethod3Match.let {
+            it.method.replaceInstruction(it[0], "return-void")
         }
-
-//        val method = theOneWeNeedToCopyFingerprint.method
-
-//        //val copy = method.copy()
-//        //copy.removeInstructions(copy.instructions.count())
-//        //copy.returnEarly()
-//
-//        method.apply {
-//            accessFlags = accessFlags.and(AccessFlags.FINAL.value.inv())
-//        }
-//
-//       // proxy(cannotVerifyAppLicenseFingerprint.classDef).mutableClass.methods.add(copy)
     }
 }

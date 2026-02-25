@@ -1,7 +1,7 @@
 package drobotk.revanced.patches.minesweeper
 
 import app.revanced.patcher.patch.bytecodePatch
-import drobotk.revanced.util.returnEarly
+import app.revanced.util.returnEarly
 
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(
@@ -9,7 +9,7 @@ val unlockPremiumPatch = bytecodePatch(
 ) {
     compatibleWith("Draziw.Button.Mines")
 
-    execute {
-        isSubscriptionEnabledFingerprint.method.returnEarly(true)
+    apply {
+        isSubscriptionEnabledMethod.returnEarly(true)
     }
 }
