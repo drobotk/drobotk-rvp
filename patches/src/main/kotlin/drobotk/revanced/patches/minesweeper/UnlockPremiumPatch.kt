@@ -1,7 +1,7 @@
 package drobotk.revanced.patches.minesweeper
 
 import app.revanced.patcher.patch.bytecodePatch
-import app.revanced.util.returnEarly
+import drobotk.revanced.util.returnEarly
 
 @Suppress("unused")
 val unlockPremiumPatch = bytecodePatch(

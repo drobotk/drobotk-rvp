@@ -5,8 +5,8 @@ import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.Method
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
-import app.revanced.util.getReference
-import app.revanced.util.indexOfFirstInstruction
+import drobotk.revanced.util.getReference
+import drobotk.revanced.util.indexOfFirstInstruction
 
 internal fun hasReferenceToGetAssignedProperty(method: Method, classDef: ClassDef) =
     method.indexOfFirstInstruction {

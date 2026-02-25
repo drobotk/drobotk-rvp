@@ -4,23 +4,9 @@ import app.revanced.patcher.extensions.InstructionExtensions.addInstructions
 import app.revanced.patcher.extensions.InstructionExtensions.instructions
 import app.revanced.patcher.extensions.InstructionExtensions.removeInstructions
 import app.revanced.patcher.patch.bytecodePatch
-import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
-import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
-import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
+import drobotk.revanced.util.copy
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
-
-private fun MutableMethod.copy() =
-    ImmutableMethod(
-        definingClass,
-        name,
-        parameters,
-        returnType,
-        accessFlags,
-        annotations,
-        hiddenApiRestrictions,
-        implementation
-    ).toMutable()
 
 @Suppress("unused")
 val overrideExperimentsPatch = bytecodePatch(

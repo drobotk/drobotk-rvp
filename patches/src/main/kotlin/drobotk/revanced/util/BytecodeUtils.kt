@@ -1,4 +1,4 @@
-package app.revanced.util
+package drobotk.revanced.util
 
 import app.revanced.patcher.FingerprintBuilder
 import app.revanced.patcher.extensions.InstructionExtensions.addInstruction
@@ -13,10 +13,11 @@ import app.revanced.patcher.util.proxy.mutableTypes.MutableClass
 import app.revanced.patcher.util.proxy.mutableTypes.MutableField
 import app.revanced.patcher.util.proxy.mutableTypes.MutableField.Companion.toMutable
 import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod
+import app.revanced.patcher.util.proxy.mutableTypes.MutableMethod.Companion.toMutable
 import app.revanced.patcher.util.smali.ExternalLabel
-import app.revanced.util.InstructionUtils.Companion.branchOpcodes
-import app.revanced.util.InstructionUtils.Companion.returnOpcodes
-import app.revanced.util.InstructionUtils.Companion.writeOpcodes
+import drobotk.revanced.util.InstructionUtils.Companion.branchOpcodes
+import drobotk.revanced.util.InstructionUtils.Companion.returnOpcodes
+import drobotk.revanced.util.InstructionUtils.Companion.writeOpcodes
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.Opcode.*
@@ -31,6 +32,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.WideLiteralInstruction
 import com.android.tools.smali.dexlib2.iface.reference.Reference
 import com.android.tools.smali.dexlib2.immutable.ImmutableField
+import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 import com.android.tools.smali.dexlib2.util.MethodUtil
 import java.util.EnumSet
 
@@ -1100,3 +1102,15 @@ private class InstructionUtils {
         )
     }
 }
+
+fun MutableMethod.copy() =
+    ImmutableMethod(
+        definingClass,
+        name,
+        parameters,
+        returnType,
+        accessFlags,
+        annotations,
+        hiddenApiRestrictions,
+        implementation
+    ).toMutable()
