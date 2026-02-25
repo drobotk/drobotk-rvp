@@ -14,6 +14,10 @@ patches {
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs = listOf("-Xcontext-parameters")
+        freeCompilerArgs.addAll("-Xcontext-parameters", "-Xexplicit-backing-fields")
     }
+}
+
+dependencies {
+    compileOnly(libs.revanced.patches)
 }

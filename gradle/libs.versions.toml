@@ -6,7 +6,7 @@ smali = "3.0.5"
 revanced-patches = "5.50.3-dev.3-local"
 
 [libraries]
-revanced-patches = { module = "app.revanced:patches", version.ref = "revanced-patches" }
+revanced-patches = { module = "revanced-patches:patches", version.ref = "revanced-patches" }
 
 [plugins]
 android-library = { id = "com.android.library" }
