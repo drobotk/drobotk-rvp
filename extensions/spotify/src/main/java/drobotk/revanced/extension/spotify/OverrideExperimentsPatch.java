@@ -5,7 +5,7 @@ import android.util.Log;
 @SuppressWarnings("unused")
 public class OverrideExperimentsPatch {
     private static final boolean LOG_ALL = true;
-    private static final String LOG_TAG = "drobotk: OverrideExperimentsPatch";
+    private static final String LOG_TAG = "drobotk-OverrideExperimentsPatch";
 
     @SuppressWarnings("unused")
     private static <T extends Enum<T>> T getEnumFromString(T defaultValue, String value) {

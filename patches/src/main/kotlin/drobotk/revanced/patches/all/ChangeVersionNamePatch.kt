@@ -1,7 +1,7 @@
 package drobotk.revanced.patches.all
 
-import app.revanced.patcher.patch.stringOption
 import app.revanced.patcher.patch.resourcePatch
+import app.revanced.patcher.patch.stringOption
 import org.w3c.dom.Element
 
 @Suppress("unused")

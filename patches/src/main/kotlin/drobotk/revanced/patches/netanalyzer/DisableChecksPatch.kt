@@ -1,13 +1,16 @@
 package drobotk.revanced.patches.netanalyzer
 
-import app.revanced.patcher.extensions.*
+import app.revanced.patcher.extensions.addInstruction
+import app.revanced.patcher.extensions.getInstruction
+import app.revanced.patcher.extensions.instructions
+import app.revanced.patcher.extensions.replaceInstruction
 import app.revanced.patcher.patch.bytecodePatch
+import app.revanced.util.indexOfFirstInstructionOrThrow
 import app.revanced.util.returnEarly
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction10t
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21t
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import app.revanced.util.indexOfFirstInstructionOrThrow
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/netanalyzer/DisableChecksPatch;"
 

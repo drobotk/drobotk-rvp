@@ -1,11 +1,16 @@
 package drobotk.revanced.patches.spotify
 
+import app.revanced.com.android.tools.smali.dexlib2.mutable.MutableMethod
+import app.revanced.patcher.classDef
 import app.revanced.patcher.extensions.addInstructions
 import app.revanced.patcher.extensions.instructions
 import app.revanced.patcher.extensions.removeInstructions
 import app.revanced.patcher.patch.bytecodePatch
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
+
+private fun MutableMethod.copy() =
+    MutableMethod(this)
 
 @Suppress("unused")
 val overrideExperimentsPatch = bytecodePatch(

@@ -1,10 +1,11 @@
 package drobotk.revanced.patches.spotify
 
-import app.revanced.patcher.extensions.*
+import app.revanced.patcher.extensions.addInstruction
+import app.revanced.patcher.extensions.getInstruction
+import app.revanced.patcher.extensions.removeInstruction
 import app.revanced.patcher.patch.bytecodePatch
-import app.revanced.util.indexOfFirstInstructionOrThrow
 import app.revanced.util.indexOfFirstInstructionReversedOrThrow
-import app.revanced.util.toPublicAccessFlags
+import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 
@@ -18,16 +19,18 @@ val overrideAccountAttributesPatch = bytecodePatch(
 
     extendWith("extensions/drobotk/spotify.rve")
 
-    execute {
+    apply {
         // Make value_ public so that it can be overridden in the extension.
         accountAttributeClassDef.fields.first {
             it.name == "value_"
         }.apply {
-            accessFlags = accessFlags.toPublicAccessFlags()
+            accessFlags = accessFlags.or(AccessFlags.PUBLIC.value)
+                .and(AccessFlags.PROTECTED.value.inv())
+                .and(AccessFlags.PRIVATE.value.inv())
         }
 
-        productStateProtoGetMapMethod.apply {
-            val getAttributesMapIndex = indexOfFirstInstructionOrThrow(Opcode.IGET_OBJECT)
+        productStateProtoGetMapMethodMatch.method.apply {
+            val getAttributesMapIndex = productStateProtoGetMapMethodMatch[0]
             val attributesMapRegister = getInstruction<TwoRegisterInstruction>(getAttributesMapIndex).registerA
 
             addInstruction(

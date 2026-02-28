@@ -1,6 +1,7 @@
 package drobotk.revanced.extension.spotify;
 
 import android.util.Log;
+
 import com.spotify.remoteconfig.internal.AccountAttribute;
 
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class OverrideAccountAttributesPatch {
     private static final boolean LOG_ALL = true;
-    private static final String LOG_TAG = "drobotk: OverrideAccountAttributesPatch";
+    private static final String LOG_TAG = "drobotk-OverrideAccountAttributesPatch";
 
     private static final Map<String, Object> OVERRIDES = Map.ofEntries(
             Map.entry("ads", false),

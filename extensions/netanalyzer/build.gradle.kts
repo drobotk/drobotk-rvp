@@ -3,5 +3,7 @@ extension {
 }
 
 android {
-    namespace = "drobotk.revanced.extension"
+    defaultConfig {
+        minSdk = 28
+    }
 }

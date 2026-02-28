@@ -13,12 +13,12 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositories {
-        mavenLocal()
-    }
+plugins {
+    id("app.revanced.patches") version "1.0.0-dev.10"
 }
 
-plugins {
-    id("app.revanced.patches") version "1.0.0-dev.9"
+settings {
+    extensions {
+        defaultNamespace = "drobotk.revanced.extension"
+    }
 }
