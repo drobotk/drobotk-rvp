@@ -9,9 +9,6 @@ import app.revanced.patcher.patch.bytecodePatch
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Ldrobotk/revanced/extension/spotify/OverrideExperimentsPatch;"
 
-private fun MutableMethod.copy() =
-    MutableMethod(this)
-
 @Suppress("unused")
 val overrideExperimentsPatch = bytecodePatch(
     name = "Override experiments"
@@ -21,10 +18,10 @@ val overrideExperimentsPatch = bytecodePatch(
     extendWith("extensions/drobotk/spotify.rve")
 
     apply {
-        getExperimentBoolMethod.apply {
+        getGetExperimentBoolMethod(getAssignedPropertyMethod).apply {
             println(this)
 
-            val trampolineMethod = copy().apply {
+            val trampolineMethod = MutableMethod(this).apply {
                 name = "trampoline_getExperimentBool"
                 classDef.methods.add(this)
             }
@@ -45,10 +42,10 @@ val overrideExperimentsPatch = bytecodePatch(
             )
         }
 
-        getExperimentEnumMethod.apply {
+        getGetExperimentEnumMethod(getAssignedPropertyMethod).apply {
             println(this)
 
-            val trampolineMethod = copy().apply {
+            val trampolineMethod = MutableMethod(this).apply {
                 name = "trampoline_getExperimentEnum"
                 classDef.methods.add(this)
             }
@@ -69,10 +66,10 @@ val overrideExperimentsPatch = bytecodePatch(
             )
         }
 
-        getExperimentIntMethod.apply {
+        getGetExperimentIntMethod(getAssignedPropertyMethod).apply {
             println(this)
 
-            val trampolineMethod = copy().apply {
+            val trampolineMethod = MutableMethod(this).apply {
                 name = "trampoline_getExperimentInt"
                 classDef.methods.add(this)
             }
