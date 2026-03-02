@@ -13,10 +13,10 @@ internal val BytecodePatchContext.getAssignedPropertyMethod by gettingFirstMetho
     instructions(
         predicates = unorderedAllOf(
             reference("Ljava/util/LinkedHashMap;->get(Ljava/lang/Object;)Ljava/lang/Object"),
-            1.toLong()(),
-            2.toLong()(),
-            3.toLong()(),
-            4.toLong()()
+            1L(),
+            2L(),
+            3L(),
+            4L()
         )
     )
 }
