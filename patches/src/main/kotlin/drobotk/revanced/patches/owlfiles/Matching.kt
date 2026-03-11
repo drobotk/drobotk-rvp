@@ -7,3 +7,7 @@ import app.revanced.patcher.returnType
 internal val BytecodePatchContext.isLicenseKeySetMethod by gettingFirstMethodDeclaratively("OWLFILES_LICENSE_KEY") {
     returnType("Z")
 }
+
+internal val BytecodePatchContext.showUpgradeSnackbarMethod by gettingFirstMethodDeclaratively("Display IAP Date") {
+    returnType("V")
+}

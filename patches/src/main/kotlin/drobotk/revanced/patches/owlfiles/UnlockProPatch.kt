@@ -11,5 +11,6 @@ val unlockProPatch = bytecodePatch(
 
     apply {
         isLicenseKeySetMethod.returnEarly(true)
+        showUpgradeSnackbarMethod.returnEarly()
     }
 }
