@@ -1,15 +1,11 @@
 package drobotk.revanced.patches.spotify
 
-import app.revanced.patcher.extensions.addInstruction
-import app.revanced.patcher.extensions.getInstruction
-import app.revanced.patcher.extensions.replaceInstruction
+import app.revanced.patcher.extensions.*
 import app.revanced.patcher.patch.bytecodePatch
 import app.revanced.util.findInstructionIndicesReversedOrThrow
-import app.revanced.util.getReference
 import app.revanced.util.indexOfFirstInstructionReversedOrThrow
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
-import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 @Suppress("unused")
 val spoofPackageInfoPatch = bytecodePatch(
@@ -39,8 +35,9 @@ val spoofPackageInfoPatch = bytecodePatch(
             val expectedInstallerName = "com.android.vending"
 
             findInstructionIndicesReversedOrThrow {
-                val reference = getReference<MethodReference>()
-                reference?.name == "getInstallerPackageName" || reference?.name == "getInstallingPackageName"
+                methodReference?.name.let {
+                    it == "getInstallerPackageName" || it == "getInstallingPackageName"
+                }
             }.forEach { index ->
                 val returnObjectIndex = index + 1
 
